@@ -4,11 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Line2D;
 
 import Backend.*;
 
-public class SquareInterface extends JPanel implements ActionListener
+public class SquareInterface extends JPanel implements MouseListener
 {
 	/**
 	 * Two dimensional array of JButtons.
@@ -45,11 +48,12 @@ public class SquareInterface extends JPanel implements ActionListener
 			{
 				ImageIcon icon = new ImageIcon(new ImageIcon("./Data/Circle.png").getImage().getScaledInstance(80,80, Image.SCALE_DEFAULT));
 				squaresLabels[i][j] = new JLabel(icon);
-				
 				// Add buttons to the panel layout.
 				add(squaresLabels[i][j]);
 			}
 		}
+		
+		this.addMouseListener(this);
 	}
 
 	/**
@@ -158,72 +162,134 @@ public class SquareInterface extends JPanel implements ActionListener
 		
 	}
 
-
 	/**
-	 * Actions of the buttons.
-	 * @param Event that happen.
+	 * Mouse click events
 	 */
-	public void actionPerformed(ActionEvent e) {
-
-		String command = e.getActionCommand();
-		String[] coordinates = command.split(",");
-		int x = Integer.parseInt(coordinates[0]);
-		int y = Integer.parseInt(coordinates[1]);
-
-		playUser(x,y);
-
-		if(tab.hasWon())
+	public void mouseClicked(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		
+		if((x >= 0 && x <= 128) && (y >= 0 && y <=120))
 		{
-			JOptionPane.showMessageDialog(this, "Congratulations you won", "Winner", JOptionPane.INFORMATION_MESSAGE);
-			int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
-			setAllButtonsEnabledTo(false);
-
-			if(messageResult == JOptionPane.YES_OPTION)
-			{
-				resetGame();
-			}
-			else
-			{
-				principal.dispose();	
-			}
-
+			//Primer cuadro 
 		}
-		else
-		{		
-			if(tab.isItTie())
-			{
-				JOptionPane.showMessageDialog(this, "Sorry the game end in a tie", "Tie", JOptionPane.INFORMATION_MESSAGE); 
-				int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
-				setAllButtonsEnabledTo(false);
-
-				if(messageResult == JOptionPane.YES_OPTION)
-				{
-					resetGame();
-				}
-				else
-				{
-					principal.dispose();
-				}
-			}
-			else
-			{
-				playAI();
-				if(tab.hasWon())
-				{
-					JOptionPane.showMessageDialog(this, "The AI won", "Looser", JOptionPane.INFORMATION_MESSAGE); 
-					int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
-					setAllButtonsEnabledTo(false);
-
-					if(messageResult == JOptionPane.YES_OPTION)
-					{
-						resetGame();
-					}
-					else
-					{
-						principal.dispose();
-					}
-				}
-			}
+		else if((x >= 0 && x <= 128) && (y >= 125 && y <=244))
+		{
+			//Segundo
+		}
+		else if((x >= 0 && x <= 128) && (y >= 249 && y <=370))
+		{
+			//Tercero
+		}
+		else if((x >= 133 && x <= 259) && (y >= 0 && y <=120))
+		{
+			//Cuarto
+		}
+		else if((x >= 133 && x <= 259) && (y >= 125 && y <=244))
+		{
+			//Quinto
+		}
+		else if((x >= 133 && x <= 259) && (y >= 249 && y <=370))
+		{
+			//Sexto
+		}
+		else if((x >= 264 && x <= 393) && (y >= 0 && y <=120))
+		{
+			//Septimo
+		}
+		else if((x >= 264 && x <= 393) && (y >= 125 && y <=244))
+		{
+			//Octavo 
+		}
+		else if((x >= 264 && x <= 393) && (y >= 249 && y <=370))
+		{	
+			//Noveno
 		}
 	}
+
+	public void mousePressed(MouseEvent e) {
+		//Nothing happens
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		//Nothing happens
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		//Nothing happens
+	}
+
+	public void mouseExited(MouseEvent e) {
+		//Nothing happens
+	}
+
+//	/**
+//	 * Actions of the buttons.
+//	 * @param Event that happen.
+//	 */
+//	public void actionPerformed(ActionEvent e) {
+//
+//		String command = e.getActionCommand();
+//		String[] coordinates = command.split(",");
+//		int x = Integer.parseInt(coordinates[0]);
+//		int y = Integer.parseInt(coordinates[1]);
+//
+//		playUser(x,y);
+//
+//		if(tab.hasWon())
+//		{
+//			JOptionPane.showMessageDialog(this, "Congratulations you won", "Winner", JOptionPane.INFORMATION_MESSAGE);
+//			int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
+//			setAllButtonsEnabledTo(false);
+//
+//			if(messageResult == JOptionPane.YES_OPTION)
+//			{
+//				resetGame();
+//			}
+//			else
+//			{
+//				principal.dispose();	
+//			}
+//
+//		}
+//		else
+//		{		
+//			if(tab.isItTie())
+//			{
+//				JOptionPane.showMessageDialog(this, "Sorry the game end in a tie", "Tie", JOptionPane.INFORMATION_MESSAGE); 
+//				int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
+//				setAllButtonsEnabledTo(false);
+//
+//				if(messageResult == JOptionPane.YES_OPTION)
+//				{
+//					resetGame();
+//				}
+//				else
+//				{
+//					principal.dispose();
+//				}
+//			}
+//			else
+//			{
+//				playAI();
+//				if(tab.hasWon())
+//				{
+//					JOptionPane.showMessageDialog(this, "The AI won", "Looser", JOptionPane.INFORMATION_MESSAGE); 
+//					int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
+//					setAllButtonsEnabledTo(false);
+//
+//					if(messageResult == JOptionPane.YES_OPTION)
+//					{
+//						resetGame();
+//					}
+//					else
+//					{
+//						principal.dispose();
+//					}
+//				}
+//			}
+//		}
+//	}
+	
+	
 }
