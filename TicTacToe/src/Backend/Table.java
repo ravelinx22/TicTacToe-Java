@@ -17,11 +17,6 @@ public class Table {
 	 */
 	public final static int CIRCLE = 2;
 
-	/**
-	 * Player has won?
-	 */
-	private boolean won;
-
 
 	/**
 	 * Squares
@@ -38,8 +33,6 @@ public class Table {
 			{START,START,START},
 			{START,START,START}
 		};
-
-		won = false;
 	}
 
 	/**
@@ -52,7 +45,7 @@ public class Table {
 	{
 		squares[posX][posY] = figure;
 	}
-	
+
 	/**
 	 * Is a square selected with an especific figure.
 	 * @param posX Position in X
@@ -64,7 +57,55 @@ public class Table {
 	{
 		return squares[posX][posY] == figure;
 	}
-	
+
+	/**
+	 * Has the player won already
+	 * @return true if the player has won, false if not.
+	 */
+	public boolean hasWon()
+	{
+		//Coordinates of the center, (1,1) so I just need one attribute.
+		int center = 1;
+		boolean ans = false;
+
+		if(squares[center][center] == squares[center][center+1] && squares[center][center] == squares[center][center-1])
+		{
+			ans = true;
+		}
+		else if(squares[center][center] == squares[center-1][center] && squares[center][center] == squares[center+1][center])
+		{
+			ans = true;
+		}
+		else if(squares[center][center] == squares[center-1][center-1] && squares[center][center] == squares[center+1][center+1])
+		{
+			ans = true;
+		}
+		else if(squares[center][center] == squares[center+1][center-1] && squares[center][center] == squares[center-1][center+1])
+		{
+			ans = true;
+		}
+		else if(squares[center][center-1] == squares[center-1][center-1] && squares[center][center-1] == squares[center+1][center-1])
+		{
+			ans = true;
+		}
+		else if(squares[center][center+1] == squares[center-1][center+1] && squares[center][center+1] == squares[center+1][center+1])
+		{
+			ans = true;
+		}
+		else if(squares[center+1][center] == squares[center+1][center-1] && squares[center+1][center] == squares[center+1][center+1])
+		{
+			ans = true;
+		}
+		else if(squares[center-1][center] == squares[center-1][center-1] && squares[center-1][center] == squares[center-1][center+1])
+		{
+			ans = true;
+		}
+
+
+		return ans;
+	}
+
+
 	/**
 	 * Resets the table to the initial state.
 	 */
