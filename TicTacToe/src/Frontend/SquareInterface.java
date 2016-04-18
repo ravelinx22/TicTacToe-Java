@@ -75,9 +75,9 @@ public class SquareInterface extends JPanel implements ActionListener
 
 		while(!played)
 		{
-			int x = StdRandom.uniform(0, 2);
-			int y = StdRandom.uniform(0, 2);
-
+			int x = StdRandom.uniform(0, 3);
+			int y = StdRandom.uniform(0, 3);
+			
 			if(tab.isSelected(x, y))
 				continue;
 
@@ -107,7 +107,7 @@ public class SquareInterface extends JPanel implements ActionListener
 		int x = Integer.parseInt(coordinates[0]);
 		int y = Integer.parseInt(coordinates[1]);
 
-		playUser(x,y);
-		playAI();
+		//playUser(x,y);
+	    playAI();
 	}
 }
