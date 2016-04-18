@@ -57,6 +57,8 @@ public class SquareInterface extends JPanel implements ActionListener
 		try
 		{
 			tab.play(x, y, Table.CROSS);
+			squaresButtons[x][y].setEnabled(false);
+			squaresButtons[x][y].setText("X");
 		}
 		catch(Exception ex)
 		{
@@ -69,7 +71,29 @@ public class SquareInterface extends JPanel implements ActionListener
 	 */
 	public void playAI()
 	{
-		tab.playAI();
+		boolean played = false;
+
+		while(!played)
+		{
+			int x = StdRandom.uniform(0, 2);
+			int y = StdRandom.uniform(0, 2);
+
+			if(tab.isSelected(x, y))
+				continue;
+
+			played = true;
+
+			try
+			{
+				tab.play(x,y,Table.CIRCLE);
+				squaresButtons[x][y].setEnabled(false);
+				squaresButtons[x][y].setText("O");
+			}
+			catch(Exception e)
+			{
+				System.out.println("x");
+			}
+		}
 	}
 
 	/**
@@ -77,10 +101,13 @@ public class SquareInterface extends JPanel implements ActionListener
 	 * @param Event that happen.
 	 */
 	public void actionPerformed(ActionEvent e) {
+
 		String command = e.getActionCommand();
 		String[] coordinates = command.split(",");
 		int x = Integer.parseInt(coordinates[0]);
 		int y = Integer.parseInt(coordinates[1]);
 
+		playUser(x,y);
+		playAI();
 	}
 }

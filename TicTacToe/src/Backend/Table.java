@@ -116,34 +116,6 @@ public class Table {
 	}
 
 	/**
-	 * AI turn
-	 */
-	public void playAI()
-	{
-		boolean played = false;
-
-		while(!played)
-		{
-			int x = StdRandom.uniform(0, 2);
-			int y = StdRandom.uniform(0, 2);
-
-			if(isSelected(x, y))
-				continue;
-
-			played = true;
-
-			try
-			{
-				play(x,y,CIRCLE);
-			}
-			catch(Exception e)
-			{
-
-			}
-		}
-	}
-
-	/**
 	 * Resets the table to the initial state.
 	 */
 	public void resetTable()
