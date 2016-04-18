@@ -26,13 +26,19 @@ public class Table {
 	/**
 	 * Constructor.
 	 */
-	public Table()
+	public Table(int x, int y)
 	{
-		squares =  new int[][]{
-			{START,START,START},
-			{START,START,START},
-			{START,START,START}
-		};
+		// Initialize the two dimensional array
+		squares = new int[x][y];
+
+		//Start each square to the start value.
+		for(int i = 0; i < squares.length; i++)
+		{
+			for(int j = 0; j < squares[i].length; j++)
+			{
+				squares[i][j] = START; 
+			}
+		}
 	}
 
 	/**

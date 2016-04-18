@@ -13,9 +13,13 @@ public class TableInterface extends JFrame
 	public final static int CORX = 3;
 	public final static int CORY = 3;
 
+	// Connection to the backend.
+	private Table table;
 
 	public TableInterface()
 	{
+		table = new Table(CORX,CORY);
+		
 		// Starting show of the window.
 		setSize(400,400);
 		setTitle("Tic Tac Toe");
@@ -38,8 +42,7 @@ public class TableInterface extends JFrame
 		}
 
 	}
-
-
+	
 	public static void main(String args[])
 	{
 		//Creates and makes visible the window.
