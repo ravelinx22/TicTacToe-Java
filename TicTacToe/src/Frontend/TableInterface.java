@@ -33,7 +33,7 @@ public class TableInterface extends JFrame
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setBackground(Color.BLACK);
+		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		
 		//Add panel.

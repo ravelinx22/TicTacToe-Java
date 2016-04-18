@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Line2D;
+
 import Backend.*;
 
 public class SquareInterface extends JPanel implements ActionListener
@@ -11,7 +13,7 @@ public class SquareInterface extends JPanel implements ActionListener
 	/**
 	 * Two dimensional array of JButtons.
 	 */
-	private JButton[][] squaresButtons;
+	private JLabel[][] squaresLabels;
 
 	/**
 	 * Instance of the class Table.
@@ -32,23 +34,20 @@ public class SquareInterface extends JPanel implements ActionListener
 	{
 		// Initial estate of the panel
 		setLayout(new GridLayout(x,y));
-		squaresButtons = new JButton[x][y];
+		squaresLabels = new JLabel[x][y];
 		tab = new Table(TableInterface.CORX,TableInterface.CORY);
 		principal = p;
 
-		//Initialize the buttons and add them to the frame.
-		for(int i = 0; i < squaresButtons.length;i++)
+		//Initialize the labels and add them to the frame.
+		for(int i = 0; i < squaresLabels.length;i++)
 		{
-			for(int j = 0; j < squaresButtons[i].length; j++)
+			for(int j = 0; j < squaresLabels[i].length; j++)
 			{
-				squaresButtons[i][j] = new JButton();
-
-				//Event handeling
-				squaresButtons[i][j].addActionListener(this);
-				squaresButtons[i][j].setActionCommand(i +"," +j);
-
+				ImageIcon icon = new ImageIcon(new ImageIcon("./Data/Circle.png").getImage().getScaledInstance(80,80, Image.SCALE_DEFAULT));
+				squaresLabels[i][j] = new JLabel(icon);
+				
 				// Add buttons to the panel layout.
-				add(squaresButtons[i][j]);
+				add(squaresLabels[i][j]);
 			}
 		}
 	}
@@ -63,8 +62,8 @@ public class SquareInterface extends JPanel implements ActionListener
 		try
 		{
 			tab.play(x, y, Table.CROSS);
-			squaresButtons[x][y].setEnabled(false);
-			squaresButtons[x][y].setText("X");
+			squaresLabels[x][y].setEnabled(false);
+			squaresLabels[x][y].setText("X");
 		}
 		catch(Exception ex)
 		{
@@ -92,8 +91,8 @@ public class SquareInterface extends JPanel implements ActionListener
 			try
 			{
 				tab.play(x,y,Table.CIRCLE);
-				squaresButtons[x][y].setEnabled(false);
-				squaresButtons[x][y].setText("O");
+				squaresLabels[x][y].setEnabled(false);
+				squaresLabels[x][y].setText("O");
 			}
 			catch(Exception e)
 			{
@@ -107,11 +106,11 @@ public class SquareInterface extends JPanel implements ActionListener
 	 */
 	public void setAllButtonsEnabledTo(boolean state)
 	{
-		for(int i = 0; i < squaresButtons.length; i++)
+		for(int i = 0; i < squaresLabels.length; i++)
 		{
-			for(int j = 0; j < squaresButtons[i].length; j++)
+			for(int j = 0; j < squaresLabels[i].length; j++)
 			{
-				squaresButtons[i][j].setEnabled(state);
+				squaresLabels[i][j].setEnabled(state);
 			}
 		}
 	}
@@ -123,15 +122,43 @@ public class SquareInterface extends JPanel implements ActionListener
 	{
 		tab.resetTable();
 
-		for(int i = 0; i < squaresButtons.length; i++)
+		for(int i = 0; i < squaresLabels.length; i++)
 		{
-			for(int j = 0; j < squaresButtons[i].length; j++)
+			for(int j = 0; j < squaresLabels[i].length; j++)
 			{
-				squaresButtons[i][j].setText("");
-				squaresButtons[i][j].setEnabled(true);
+				squaresLabels[i][j].setText("");
+				squaresLabels[i][j].setEnabled(true);
 			}
 		}
 	}
+
+	/**
+	 * Method that paints the lines of the tic tac toe.
+	 */
+	public void paintComponent(Graphics g)
+	{
+		Graphics2D graph = (Graphics2D) g;
+		int height = this.getHeight();
+		int width = this.getWidth();
+
+		graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		Shape drawLine1 = new Line2D.Double(15, (height/3), width-15, (height/3));
+		Shape drawLine2 = new Line2D.Double(15, ((height/3)*2), width-15, ((height/3)*2));
+		Shape drawLine3 = new Line2D.Double((width/3), 15, (width/3), height-15);
+		Shape drawLine4 = new Line2D.Double(((width/3)*2), 15, ((width/3)*2), height-15);
+
+		graph.setStroke(new BasicStroke(5));
+		graph.setPaint(Color.BLACK);
+
+		graph.draw(drawLine1);
+		graph.draw(drawLine2);
+		graph.draw(drawLine3);
+		graph.draw(drawLine4);
+		
+	}
+
+
 	/**
 	 * Actions of the buttons.
 	 * @param Event that happen.
