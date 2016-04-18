@@ -77,7 +77,7 @@ public class SquareInterface extends JPanel implements ActionListener
 		{
 			int x = StdRandom.uniform(0, 3);
 			int y = StdRandom.uniform(0, 3);
-			
+
 			if(tab.isSelected(x, y))
 				continue;
 
@@ -97,6 +97,36 @@ public class SquareInterface extends JPanel implements ActionListener
 	}
 
 	/**
+	 * Disables all buttons.
+	 */
+	public void setAllButtonsEnabledTo(boolean state)
+	{
+		for(int i = 0; i < squaresButtons.length; i++)
+		{
+			for(int j = 0; j < squaresButtons[i].length; j++)
+			{
+				squaresButtons[i][j].setEnabled(state);
+			}
+		}
+	}
+
+	/**
+	 * Resets interface game.
+	 */
+	public void resetGame()
+	{
+		tab.resetTable();
+
+		for(int i = 0; i < squaresButtons.length; i++)
+		{
+			for(int j = 0; j < squaresButtons[i].length; j++)
+			{
+				squaresButtons[i][j].setText("");
+				squaresButtons[i][j].setEnabled(true);
+			}
+		}
+	}
+	/**
 	 * Actions of the buttons.
 	 * @param Event that happen.
 	 */
@@ -107,12 +137,13 @@ public class SquareInterface extends JPanel implements ActionListener
 		int x = Integer.parseInt(coordinates[0]);
 		int y = Integer.parseInt(coordinates[1]);
 
-		
+
 		playUser(x,y);
-		
+
 		if(tab.hasWon())
 		{
-			JOptionPane.showMessageDialog(this, "Winner", "Congratulations you won!", JOptionPane.INFORMATION_MESSAGE); 
+			JOptionPane.showMessageDialog(this, "Winner", "Congratulations you won!", JOptionPane.INFORMATION_MESSAGE);
+			setAllButtonsEnabledTo(false);
 		}
 		else
 		{
@@ -120,10 +151,8 @@ public class SquareInterface extends JPanel implements ActionListener
 			if(tab.hasWon())
 			{
 				JOptionPane.showMessageDialog(this, "Looser", "The AI won", JOptionPane.INFORMATION_MESSAGE); 
+				setAllButtonsEnabledTo(false);
 			}
 		}
-	    
-		
-	    System.out.println(tab.hasWon());
 	}
 }
