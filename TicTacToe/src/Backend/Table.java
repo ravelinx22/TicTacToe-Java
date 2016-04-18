@@ -47,7 +47,7 @@ public class Table {
 	 * @param posY Position in y.
 	 * @param figure What figure is going to be in the square.
 	 */
-	private void play(int posX, int posY, int figure) throws Exception
+	public void play(int posX, int posY, int figure) throws Exception
 	{
 		if(squares[posX][posY] != START) throw new Exception("Square has already been played");
 
@@ -58,15 +58,14 @@ public class Table {
 	}
 
 	/**
-	 * Is a square selected with an especific figure.
+	 * Is a square selected 
 	 * @param posX Position in X
 	 * @param posY Position in Y
-	 * @param figure Figure that is expected to be in the square
 	 * @return True if the figure in in the square, false if not.
 	 */
-	private boolean isSelectedWith(int posX, int posY, int figure)
+	public boolean isSelected(int posX, int posY)
 	{
-		return squares[posX][posY] == figure;
+		return squares[posX][posY] != START;
 	}
 
 	/**
@@ -116,11 +115,38 @@ public class Table {
 		return ans;
 	}
 
+	/**
+	 * AI turn
+	 */
+	public void playAI()
+	{
+		boolean played = false;
+
+		while(!played)
+		{
+			int x = StdRandom.uniform(0, 2);
+			int y = StdRandom.uniform(0, 2);
+
+			if(isSelected(x, y))
+				continue;
+
+			played = true;
+
+			try
+			{
+				play(x,y,CIRCLE);
+			}
+			catch(Exception e)
+			{
+
+			}
+		}
+	}
 
 	/**
 	 * Resets the table to the initial state.
 	 */
-	private void resetTable()
+	public void resetTable()
 	{
 		for(int i = 0; i < squares.length; i++)
 		{

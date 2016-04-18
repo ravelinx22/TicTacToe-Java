@@ -10,15 +10,11 @@ public class TableInterface extends JFrame
 	public final static int CORX = 3;
 	public final static int CORY = 3;
 
-	// Connection to the backend.
-	private Table table;
-
 	// Panel that is going to be in the table
 	private SquareInterface square;
 	
 	public TableInterface()
 	{
-		table = new Table(CORX,CORY);
 		square = new SquareInterface(CORX, CORY);
 		
 		// Starting show of the window.
@@ -33,7 +29,7 @@ public class TableInterface extends JFrame
 		//Add panel.
 		add(square);
 	}
-	
+			
 	public static void main(String args[])
 	{
 		//Creates and makes visible the window.
