@@ -8,26 +8,33 @@ import Backend.*;
 
 public class SquareInterface extends JPanel implements ActionListener
 {
-
-	// Two dimensional array of JButtons.
+	/**
+	 * Two dimensional array of JButtons.
+	 */
 	private JButton[][] squaresButtons;
 
-	// TableInterface Attribute
-
-	// Table
+	/**
+	 * Instance of the class Table.
+	 */
 	private Table tab;
+
+	/**
+	 * TableInterface class instance.
+	 */
+	private TableInterface principal;
 
 	/**
 	 * Constructor 
 	 * @param x Size in x
 	 * @param y Size in y
 	 */
-	public SquareInterface(int x, int y)
+	public SquareInterface(int x, int y, TableInterface p)
 	{
 		// Initial estate of the panel
 		setLayout(new GridLayout(x,y));
 		squaresButtons = new JButton[x][y];
 		tab = new Table(TableInterface.CORX,TableInterface.CORY);
+		principal = p;
 
 		//Initialize the buttons and add them to the frame.
 		for(int i = 0; i < squaresButtons.length;i++)
@@ -110,7 +117,7 @@ public class SquareInterface extends JPanel implements ActionListener
 	}
 
 	/**
-	 * Resets interface game.
+	 * Resets interface game buttons and backend squares.
 	 */
 	public void resetGame()
 	{
@@ -136,7 +143,6 @@ public class SquareInterface extends JPanel implements ActionListener
 		int x = Integer.parseInt(coordinates[0]);
 		int y = Integer.parseInt(coordinates[1]);
 
-
 		playUser(x,y);
 
 		if(tab.hasWon())
@@ -148,6 +154,10 @@ public class SquareInterface extends JPanel implements ActionListener
 			if(messageResult == JOptionPane.YES_OPTION)
 			{
 				resetGame();
+			}
+			else
+			{
+				principal.dispose();	
 			}
 
 		}
@@ -163,6 +173,10 @@ public class SquareInterface extends JPanel implements ActionListener
 				{
 					resetGame();
 				}
+				else
+				{
+					principal.dispose();
+				}
 			}
 			else
 			{
@@ -176,6 +190,10 @@ public class SquareInterface extends JPanel implements ActionListener
 					if(messageResult == JOptionPane.YES_OPTION)
 					{
 						resetGame();
+					}
+					else
+					{
+						principal.dispose();
 					}
 				}
 			}

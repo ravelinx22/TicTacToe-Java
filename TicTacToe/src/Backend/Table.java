@@ -114,14 +114,14 @@ public class Table {
 
 		return ans;
 	}
-	
+
 	/**
 	 * Is the game in a tie.
 	 */
 	public boolean isItTie()
 	{
 		boolean ans = true;
-		
+
 		for(int i = 0; i < squares.length; i++)
 		{
 			for(int j = 0; j < squares[i].length; j++)
@@ -129,7 +129,7 @@ public class Table {
 				if(squares[i][j] == START) ans = false;
 			}
 		}
-		
+
 		return ans;
 	}
 
