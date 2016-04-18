@@ -78,35 +78,35 @@ public class Table {
 		int center = 1;
 		boolean ans = false;
 
-		if(squares[center][center] == squares[center][center+1] && squares[center][center] == squares[center][center-1])
+		if(squares[center][center] != 0 && squares[center][center] == squares[center][center+1] && squares[center][center] == squares[center][center-1])
 		{
 			ans = true;
 		}
-		else if(squares[center][center] == squares[center-1][center] && squares[center][center] == squares[center+1][center])
+		else if(squares[center][center] != 0 && squares[center][center] == squares[center-1][center] && squares[center][center] == squares[center+1][center])
 		{
 			ans = true;
 		}
-		else if(squares[center][center] == squares[center-1][center-1] && squares[center][center] == squares[center+1][center+1])
+		else if(squares[center][center] != 0 && squares[center][center] == squares[center-1][center-1] && squares[center][center] == squares[center+1][center+1])
 		{
 			ans = true;
 		}
-		else if(squares[center][center] == squares[center+1][center-1] && squares[center][center] == squares[center-1][center+1])
+		else if(squares[center][center] != 0 && squares[center][center] == squares[center+1][center-1] && squares[center][center] == squares[center-1][center+1])
 		{
 			ans = true;
 		}
-		else if(squares[center][center-1] == squares[center-1][center-1] && squares[center][center-1] == squares[center+1][center-1])
+		else if(squares[center][center-1] != 0 && squares[center][center-1] == squares[center-1][center-1] && squares[center][center-1] == squares[center+1][center-1])
 		{
 			ans = true;
 		}
-		else if(squares[center][center+1] == squares[center-1][center+1] && squares[center][center+1] == squares[center+1][center+1])
+		else if(squares[center][center+1] != 0 && squares[center][center+1] == squares[center-1][center+1] && squares[center][center+1] == squares[center+1][center+1])
 		{
 			ans = true;
 		}
-		else if(squares[center+1][center] == squares[center+1][center-1] && squares[center+1][center] == squares[center+1][center+1])
+		else if(squares[center+1][center] != 0 && squares[center+1][center] == squares[center+1][center-1] && squares[center+1][center] == squares[center+1][center+1])
 		{
 			ans = true;
 		}
-		else if(squares[center-1][center] == squares[center-1][center-1] && squares[center-1][center] == squares[center-1][center+1])
+		else if(squares[center-1][center] != 0 && squares[center-1][center] == squares[center-1][center-1] && squares[center-1][center] == squares[center-1][center+1])
 		{
 			ans = true;
 		}

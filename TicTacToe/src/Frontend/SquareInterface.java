@@ -107,7 +107,23 @@ public class SquareInterface extends JPanel implements ActionListener
 		int x = Integer.parseInt(coordinates[0]);
 		int y = Integer.parseInt(coordinates[1]);
 
-		//playUser(x,y);
-	    playAI();
+		
+		playUser(x,y);
+		
+		if(tab.hasWon())
+		{
+			JOptionPane.showMessageDialog(this, "Winner", "Congratulations you won!", JOptionPane.INFORMATION_MESSAGE); 
+		}
+		else
+		{
+			playAI();
+			if(tab.hasWon())
+			{
+				JOptionPane.showMessageDialog(this, "Looser", "The AI won", JOptionPane.INFORMATION_MESSAGE); 
+			}
+		}
+	    
+		
+	    System.out.println(tab.hasWon());
 	}
 }
