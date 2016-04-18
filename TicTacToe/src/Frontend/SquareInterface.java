@@ -13,7 +13,6 @@ public class SquareInterface extends JPanel implements ActionListener
 	private JButton[][] squaresButtons;
 
 	// TableInterface Attribute
-	private TableInterface inter;
 
 	// Table
 	private Table tab;
@@ -142,16 +141,43 @@ public class SquareInterface extends JPanel implements ActionListener
 
 		if(tab.hasWon())
 		{
-			JOptionPane.showMessageDialog(this, "Winner", "Congratulations you won!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Congratulations you won", "Winner", JOptionPane.INFORMATION_MESSAGE);
+			int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
 			setAllButtonsEnabledTo(false);
+
+			if(messageResult == JOptionPane.YES_OPTION)
+			{
+				resetGame();
+			}
+
 		}
 		else
-		{
-			playAI();
-			if(tab.hasWon())
+		{		
+			if(tab.isItTie())
 			{
-				JOptionPane.showMessageDialog(this, "Looser", "The AI won", JOptionPane.INFORMATION_MESSAGE); 
+				JOptionPane.showMessageDialog(this, "Sorry the game end in a tie", "Tie", JOptionPane.INFORMATION_MESSAGE); 
+				int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
 				setAllButtonsEnabledTo(false);
+
+				if(messageResult == JOptionPane.YES_OPTION)
+				{
+					resetGame();
+				}
+			}
+			else
+			{
+				playAI();
+				if(tab.hasWon())
+				{
+					JOptionPane.showMessageDialog(this, "The AI won", "Looser", JOptionPane.INFORMATION_MESSAGE); 
+					int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
+					setAllButtonsEnabledTo(false);
+
+					if(messageResult == JOptionPane.YES_OPTION)
+					{
+						resetGame();
+					}
+				}
 			}
 		}
 	}

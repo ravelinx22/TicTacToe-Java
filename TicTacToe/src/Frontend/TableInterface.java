@@ -29,7 +29,7 @@ public class TableInterface extends JFrame
 		//Add panel.
 		add(square);
 	}
-			
+	
 	public static void main(String args[])
 	{
 		//Creates and makes visible the window.
