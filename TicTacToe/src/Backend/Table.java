@@ -41,9 +41,14 @@ public class Table {
 	 * @param posY Position in y.
 	 * @param figure What figure is going to be in the square.
 	 */
-	private void play(int posX, int posY, int figure)
+	private void play(int posX, int posY, int figure) throws Exception
 	{
-		squares[posX][posY] = figure;
+		if(squares[posX][posY] != START) throw new Exception("Square has already been played");
+
+		else
+		{
+			squares[posX][posY] = figure;			
+		}
 	}
 
 	/**
