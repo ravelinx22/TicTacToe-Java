@@ -6,9 +6,6 @@ import java.awt.*;
 
 public class TableInterface extends JFrame 
 {
-	// Two dimensional array of JButtons.
-	private JButton[][] squaresButtons;
-
 	//Constants that represents the two dimensional array dimensions
 	public final static int CORX = 3;
 	public final static int CORY = 3;
@@ -16,9 +13,13 @@ public class TableInterface extends JFrame
 	// Connection to the backend.
 	private Table table;
 
+	// Panel that is going to be in the table
+	private SquareInterface square;
+	
 	public TableInterface()
 	{
 		table = new Table(CORX,CORY);
+		square = new SquareInterface(CORX, CORY);
 		
 		// Starting show of the window.
 		setSize(400,400);
@@ -27,20 +28,10 @@ public class TableInterface extends JFrame
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBackground(Color.BLACK);
-		setLayout(new GridLayout(3,3));
-		this.getContentPane().setBackground(Color.WHITE);
-		squaresButtons = new JButton[CORX][CORY];
-
-		//Initialize the buttons and add them to the frame.
-		for(int i = 0; i < squaresButtons.length;i++)
-		{
-			for(int j = 0; j < squaresButtons[i].length; j++)
-			{
-				squaresButtons[i][j] = new JButton();
-				add(squaresButtons[i][j]);
-			}
-		}
-
+		setLayout(new BorderLayout());
+		
+		//Add panel.
+		add(square);
 	}
 	
 	public static void main(String args[])
