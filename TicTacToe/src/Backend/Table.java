@@ -49,7 +49,7 @@ public class Table {
 	 */
 	public void play(int posX, int posY, int figure) throws Exception
 	{
-		if(squares[posX][posY] != START) throw new Exception("Square has already been played");
+		if(squares[posX][posY] != START) throw new Exception("You already played there");
 
 		else
 		{

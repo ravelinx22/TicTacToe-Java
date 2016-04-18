@@ -1,10 +1,14 @@
 package Frontend;
-import Backend.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class TableInterface extends JFrame 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Constant that represents the two dimensional array dimension in X
 	 */

@@ -2,17 +2,19 @@ package Frontend;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.geom.Line2D;
 
 import Backend.*;
 
 public class SquareInterface extends JPanel implements MouseListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Two dimensional array of JButtons.
 	 */
@@ -46,13 +48,12 @@ public class SquareInterface extends JPanel implements MouseListener
 		{
 			for(int j = 0; j < squaresLabels[i].length; j++)
 			{
-				ImageIcon icon = new ImageIcon(new ImageIcon("./Data/Circle.png").getImage().getScaledInstance(80,80, Image.SCALE_DEFAULT));
-				squaresLabels[i][j] = new JLabel(icon);
+				squaresLabels[i][j] = new JLabel("",JLabel.CENTER);
 				// Add buttons to the panel layout.
 				add(squaresLabels[i][j]);
 			}
 		}
-		
+
 		this.addMouseListener(this);
 	}
 
@@ -61,18 +62,12 @@ public class SquareInterface extends JPanel implements MouseListener
 	 * @param x Coordinate x
 	 * @param y Coordinate y
 	 */
-	public void playUser(int x, int y)
+	public void playUser(int x, int y) throws Exception
 	{
-		try
-		{
-			tab.play(x, y, Table.CROSS);
-			squaresLabels[x][y].setEnabled(false);
-			squaresLabels[x][y].setText("X");
-		}
-		catch(Exception ex)
-		{
-			JOptionPane.showMessageDialog(this, "Error", ex.getMessage(), JOptionPane.ERROR_MESSAGE); 
-		}
+		ImageIcon cross = new ImageIcon(new ImageIcon("./Data/Cross.png").getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT));
+
+		tab.play(x, y, Table.CROSS);
+		squaresLabels[x][y].setIcon(cross);
 	}
 
 	/**
@@ -81,6 +76,7 @@ public class SquareInterface extends JPanel implements MouseListener
 	public void playAI()
 	{
 		boolean played = false;
+		ImageIcon circle = new ImageIcon(new ImageIcon("./Data/Circle.png").getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT));
 
 		while(!played)
 		{
@@ -95,26 +91,11 @@ public class SquareInterface extends JPanel implements MouseListener
 			try
 			{
 				tab.play(x,y,Table.CIRCLE);
-				squaresLabels[x][y].setEnabled(false);
-				squaresLabels[x][y].setText("O");
+				squaresLabels[x][y].setIcon(circle);
 			}
 			catch(Exception e)
 			{
 				System.out.println("x");
-			}
-		}
-	}
-
-	/**
-	 * Disables all buttons.
-	 */
-	public void setAllButtonsEnabledTo(boolean state)
-	{
-		for(int i = 0; i < squaresLabels.length; i++)
-		{
-			for(int j = 0; j < squaresLabels[i].length; j++)
-			{
-				squaresLabels[i][j].setEnabled(state);
 			}
 		}
 	}
@@ -131,7 +112,7 @@ public class SquareInterface extends JPanel implements MouseListener
 			for(int j = 0; j < squaresLabels[i].length; j++)
 			{
 				squaresLabels[i][j].setText("");
-				squaresLabels[i][j].setEnabled(true);
+				squaresLabels[i][j].setIcon(null);
 			}
 		}
 	}
@@ -159,7 +140,7 @@ public class SquareInterface extends JPanel implements MouseListener
 		graph.draw(drawLine2);
 		graph.draw(drawLine3);
 		graph.draw(drawLine4);
-		
+
 	}
 
 	/**
@@ -168,45 +149,113 @@ public class SquareInterface extends JPanel implements MouseListener
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		
+
 		if((x >= 0 && x <= 128) && (y >= 0 && y <=120))
-		{
-			//Primer cuadro 
+		{	
+			playGeneral(0, 0);
 		}
 		else if((x >= 0 && x <= 128) && (y >= 125 && y <=244))
 		{
-			//Segundo
+			playGeneral(1, 0);
 		}
 		else if((x >= 0 && x <= 128) && (y >= 249 && y <=370))
 		{
-			//Tercero
+			playGeneral(2, 0);
 		}
 		else if((x >= 133 && x <= 259) && (y >= 0 && y <=120))
 		{
-			//Cuarto
+			playGeneral(0, 1);
 		}
 		else if((x >= 133 && x <= 259) && (y >= 125 && y <=244))
 		{
-			//Quinto
+			playGeneral(1, 1);
 		}
 		else if((x >= 133 && x <= 259) && (y >= 249 && y <=370))
 		{
-			//Sexto
+			playGeneral(2, 1);
 		}
 		else if((x >= 264 && x <= 393) && (y >= 0 && y <=120))
 		{
-			//Septimo
+			playGeneral(0, 2);
 		}
 		else if((x >= 264 && x <= 393) && (y >= 125 && y <=244))
 		{
-			//Octavo 
+			playGeneral(1, 2);
 		}
 		else if((x >= 264 && x <= 393) && (y >= 249 && y <=370))
 		{	
-			//Noveno
+			playGeneral(2, 2);
 		}
 	}
 
+	/**
+	 * Plays each move.
+	 * @param x Position in x.
+	 * @param y Position in y.
+	 */
+	public void playGeneral(int x, int y)
+	{			 
+		try
+		{
+			playUser(x,y);
+			if(tab.hasWon())
+			{
+				JOptionPane.showMessageDialog(this, "Congratulations you won", "Winner", JOptionPane.INFORMATION_MESSAGE);
+				int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
+
+				if(messageResult == JOptionPane.YES_OPTION)
+				{
+					resetGame();
+				}
+				else
+				{
+					principal.dispose();	
+				}
+			}		
+			else
+			{		
+				if(tab.isItTie())
+				{
+					JOptionPane.showMessageDialog(this, "Sorry the game end in a tie", "Tie", JOptionPane.INFORMATION_MESSAGE); 
+					int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
+
+					if(messageResult == JOptionPane.YES_OPTION)
+					{
+						resetGame();
+					}
+					else
+					{
+						principal.dispose();
+					}
+				}
+				else
+				{
+					playAI();
+					if(tab.hasWon())
+					{
+						JOptionPane.showMessageDialog(this, "The AI won", "Looser", JOptionPane.INFORMATION_MESSAGE); 
+						int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
+
+						if(messageResult == JOptionPane.YES_OPTION)
+						{
+							resetGame();
+						}
+						else
+						{
+							principal.dispose();
+						}
+					}
+				}
+			}
+			this.repaint();
+		}
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			this.repaint();
+		}
+	}
+	
 	public void mousePressed(MouseEvent e) {
 		//Nothing happens
 	}
@@ -222,74 +271,4 @@ public class SquareInterface extends JPanel implements MouseListener
 	public void mouseExited(MouseEvent e) {
 		//Nothing happens
 	}
-
-//	/**
-//	 * Actions of the buttons.
-//	 * @param Event that happen.
-//	 */
-//	public void actionPerformed(ActionEvent e) {
-//
-//		String command = e.getActionCommand();
-//		String[] coordinates = command.split(",");
-//		int x = Integer.parseInt(coordinates[0]);
-//		int y = Integer.parseInt(coordinates[1]);
-//
-//		playUser(x,y);
-//
-//		if(tab.hasWon())
-//		{
-//			JOptionPane.showMessageDialog(this, "Congratulations you won", "Winner", JOptionPane.INFORMATION_MESSAGE);
-//			int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
-//			setAllButtonsEnabledTo(false);
-//
-//			if(messageResult == JOptionPane.YES_OPTION)
-//			{
-//				resetGame();
-//			}
-//			else
-//			{
-//				principal.dispose();	
-//			}
-//
-//		}
-//		else
-//		{		
-//			if(tab.isItTie())
-//			{
-//				JOptionPane.showMessageDialog(this, "Sorry the game end in a tie", "Tie", JOptionPane.INFORMATION_MESSAGE); 
-//				int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
-//				setAllButtonsEnabledTo(false);
-//
-//				if(messageResult == JOptionPane.YES_OPTION)
-//				{
-//					resetGame();
-//				}
-//				else
-//				{
-//					principal.dispose();
-//				}
-//			}
-//			else
-//			{
-//				playAI();
-//				if(tab.hasWon())
-//				{
-//					JOptionPane.showMessageDialog(this, "The AI won", "Looser", JOptionPane.INFORMATION_MESSAGE); 
-//					int messageResult = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "Tic Tac Toe", y);
-//					setAllButtonsEnabledTo(false);
-//
-//					if(messageResult == JOptionPane.YES_OPTION)
-//					{
-//						resetGame();
-//					}
-//					else
-//					{
-//						principal.dispose();
-//					}
-//				}
-//			}
-//		}
-//	}
-	
-	
 }
